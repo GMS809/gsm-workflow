@@ -1,0 +1,25 @@
+name: My first Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - 'release/**' # Corrected indentation and added to push trigger
+    paths:
+      - 'doc/**'     # Corrected indentation and added to push trigger
+  workflow_dispatch: # Correctly placed workflow_dispatch
+
+jobs:
+  first_job:
+    name: My first job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet the user
+        run: |
+          echo "Hello world from ${{ github.actor }}."
+          echo "Current branch is '${{ github.ref }}'."
+      - name: Checkout repository
+        uses: actions/checkout@v4.1.0
+      - name: List directory contents
+        run: tree # This will only work if 'tree' is installed on the runner.
+                  # For most basic GitHub Actions, 'ls -R' is a more common alternative.
